@@ -1,22 +1,19 @@
 import { Box } from 'grommet';
-import React from 'react';
+import { forwardRef } from 'react';
 import Container from './Container';
 
-const Section = ({
-  withContainer = false,
-  containerProps = {},
-  children,
-  ...rest
-}) => {
-  return (
-    <Box {...rest}>
-      {withContainer ? (
-        <Container {...containerProps}>{children}</Container>
-      ) : (
-        children
-      )}
-    </Box>
-  );
-};
+const Section = forwardRef(
+  ({ withContainer = false, containerProps = {}, children, ...rest }, ref) => {
+    return (
+      <Box {...rest} ref={ref}>
+        {withContainer ? (
+          <Container {...containerProps}>{children}</Container>
+        ) : (
+          children
+        )}
+      </Box>
+    );
+  }
+);
 
 export default Section;

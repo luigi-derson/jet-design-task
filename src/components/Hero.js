@@ -4,16 +4,25 @@ import HeroBg from '../assets/bg-1.jpg';
 import ProductsImage from '../assets/products.png';
 import MiniLogo from '../assets/mini-logo.svg';
 import { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const Hero = () => {
   const [openTab, setOpenTab] = useState(0);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: '-100px 0px',
+  });
   const openTabStyles = {
     color: 'brand',
     decoration: 'underline',
   };
 
   return (
-    <Section background="#F6F6F2" pad="medium">
+    <Section
+      background="#F6F6F2"
+      pad="medium"
+      animation={['slideUp', 'fadeIn']}
+    >
       <Box
         height="590px"
         overflow="hidden"
@@ -46,6 +55,7 @@ const Hero = () => {
           align="center"
           justify="between"
           fill="vertical"
+          animation="zoomOut"
         >
           <Box flex={{ grow: 1 }} basis="1/2">
             <Image src={ProductsImage} alt="products" />
@@ -78,208 +88,215 @@ const Hero = () => {
           </Box>
         </Box>
       </Box>
-      <Box pad="medium">
-        <Box direction="column" align="center" justify="center">
-          <Box direction="row" justify="center" align="center" pad="small">
-            <Image margin={{ left: '1.5rem' }} src={MiniLogo} alt="Mini Logo" />
-          </Box>
-          <Box
-            direction="row"
-            align="center"
-            justify="center"
-            gap="medium"
-            border="between"
-            margin={{ top: '1rem' }}
-          >
-            <Box>
-              <Button onClick={() => setOpenTab(0)}>
-                {() => (
-                  <Text
-                    letterSpacing={2}
-                    color="rgba(4, 66, 41, 0.4)"
-                    {...(openTab === 0 && openTabStyles)}
-                  >
-                    SHOP BY PRODUCT
-                  </Text>
-                )}
-              </Button>
+      <Box ref={ref} />
+      {inView && (
+        <Box pad="medium" animation={['fadeIn', 'slideUp']}>
+          <Box direction="column" align="center" justify="center">
+            <Box direction="row" justify="center" align="center" pad="small">
+              <Image
+                margin={{ left: '1.5rem' }}
+                src={MiniLogo}
+                alt="Mini Logo"
+              />
             </Box>
-            <Box>
-              <Button onClick={() => setOpenTab(1)}>
-                {() => (
-                  <Text
-                    letterSpacing={2}
-                    color="rgba(4, 66, 41, 0.4)"
-                    {...(openTab === 1 && openTabStyles)}
-                  >
-                    SHOP BY BENEFIT
-                  </Text>
-                )}
-              </Button>
-            </Box>
-          </Box>
-          <Box margin={{ top: 'medium' }}>
-            {openTab === 0 && (
-              <Box
-                animation="fadeIn"
-                direction="row"
-                align="center"
-                gap="small"
-              >
-                <Button primary type="button">
+            <Box
+              direction="row"
+              align="center"
+              justify="center"
+              gap="medium"
+              border="between"
+              margin={{ top: '1rem' }}
+            >
+              <Box>
+                <Button onClick={() => setOpenTab(0)}>
                   {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
+                    <Text
+                      letterSpacing={2}
+                      color="rgba(4, 66, 41, 0.4)"
+                      {...(openTab === 0 && openTabStyles)}
                     >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Supplements
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Beauty & Toiletries
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Dietary
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Snacking
-                      </Text>
-                    </Box>
+                      SHOP BY PRODUCT
+                    </Text>
                   )}
                 </Button>
               </Box>
-            )}
-            {openTab === 1 && (
-              <Box
-                animation="fadeIn"
-                direction="row"
-                align="center"
-                gap="small"
-              >
-                <Button primary type="button">
+              <Box>
+                <Button onClick={() => setOpenTab(1)}>
                   {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
+                    <Text
+                      letterSpacing={2}
+                      color="rgba(4, 66, 41, 0.4)"
+                      {...(openTab === 1 && openTabStyles)}
                     >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Energy
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Digestion
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Sleep & Stress
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Immunity
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Anti-aging
-                      </Text>
-                    </Box>
-                  )}
-                </Button>
-                <Button primary type="button">
-                  {() => (
-                    <Box
-                      pad="xsmall"
-                      direction="row"
-                      align="center"
-                      gap="small"
-                    >
-                      <Text size="15px" color="brand" letterSpacing={1}>
-                        Bone
-                      </Text>
-                    </Box>
+                      SHOP BY BENEFIT
+                    </Text>
                   )}
                 </Button>
               </Box>
-            )}
+            </Box>
+            <Box margin={{ top: 'medium' }}>
+              {openTab === 0 && (
+                <Box
+                  animation="fadeIn"
+                  direction="row"
+                  align="center"
+                  gap="small"
+                >
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Supplements
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Beauty & Toiletries
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Dietary
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Snacking
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                </Box>
+              )}
+              {openTab === 1 && (
+                <Box
+                  animation="fadeIn"
+                  direction="row"
+                  align="center"
+                  gap="small"
+                >
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Energy
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Digestion
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Sleep & Stress
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Immunity
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Anti-aging
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                  <Button primary type="button">
+                    {() => (
+                      <Box
+                        pad="xsmall"
+                        direction="row"
+                        align="center"
+                        gap="small"
+                      >
+                        <Text size="15px" color="brand" letterSpacing={1}>
+                          Bone
+                        </Text>
+                      </Box>
+                    )}
+                  </Button>
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
     </Section>
   );
 };
