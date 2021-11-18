@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'normalize.css';
+import 'swiper/swiper-bundle.min.css';
 import './App.css';
 
 ReactDOM.render(
